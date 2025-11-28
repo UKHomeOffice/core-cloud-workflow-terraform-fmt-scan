@@ -1,0 +1,27 @@
+name: Terraform fmt Reusable Workflow
+
+on:
+  workflow_call:
+    inputs:
+      working_directory:
+        description: 'Directory to fmt'
+        required: false
+        default: '.'
+        type: string
+
+jobs:
+  fmt:
+    name: Terraform fmt
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ~1.7.0
+
+      - name: Terraform fmt
+        working-directory: ${{ inputs.working_directory }}
+        run: terraform fmt -recursive -check
