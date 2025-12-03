@@ -24,4 +24,4 @@ jobs:
 
       - name: Terraform fmt
         working-directory: ${{ inputs.working_directory }}
-        run: terraform fmt -recursive -check
+        run: terraform fmt -recursive -diff -check
